@@ -30,7 +30,8 @@ public class TopInterview150 {
 //        System.out.println(solution.(str1));
 //        System.out.println(solution.intToRoman(n));
 //        System.out.println(solution.lengthOfLastWord(str1));
-        System.out.println(solution.longestCommonPrefix(strings));
+//        System.out.println(solution.longestCommonPrefix(strings));
+        System.out.println(solution.reverseWords(str1));
 
 
         //-----------------------------test--------------------------------------------
@@ -448,6 +449,30 @@ public class TopInterview150 {
             }
         }
         return strs[0];
+    }
+
+    public  String reverseWords(String s) {
+        StringBuilder sb = new StringBuilder();
+        int index = s.length() - 1;
+        if(index == 0) {
+            return s;
+        }
+        while (index > 0) {
+            while (index >0 &&s.charAt(index) == ' ') {
+                index--;
+            }
+            int wordLength = 0;
+            while (index >= 0 && s.charAt(index) != ' ') {
+                wordLength++;
+                index--;
+            }
+            sb.append(s, index  + 1, index + wordLength + 1);
+            sb.append(" ");
+        }
+        while (sb.length() -1 > 0 && sb.charAt(sb.length() -1) == ' ') {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
 
 }
