@@ -452,27 +452,28 @@ public class TopInterview150 {
     }
 
     public  String reverseWords(String s) {
-        StringBuilder sb = new StringBuilder();
-        int index = s.length() - 1;
-        if(index == 0) {
-            return s;
-        }
-        while (index > 0) {
-            while (index >0 &&s.charAt(index) == ' ') {
-                index--;
-            }
-            int wordLength = 0;
-            while (index >= 0 && s.charAt(index) != ' ') {
-                wordLength++;
-                index--;
-            }
-            sb.append(s, index  + 1, index + wordLength + 1);
-            sb.append(" ");
-        }
-        while (sb.length() -1 > 0 && sb.charAt(sb.length() -1) == ' ') {
-            sb.deleteCharAt(sb.length() - 1);
-        }
-        return sb.toString();
+//        StringBuilder sb = new StringBuilder();
+//        int index = s.length() - 1;
+//        while (index >= 0) {
+//            while (index >=0 && s.charAt(index) == ' ') {
+//                index--;
+//            }
+//            int wordLength = 0;
+//            while (index >= 0 && s.charAt(index) != ' ') {
+//                wordLength++;
+//                index--;
+//            }
+//            sb.append(s, index  + 1, index + wordLength + 1);
+//            sb.append(" ");
+//        }
+//        while (sb.length() - 1 >= 0 && sb.charAt(sb.length() -1) == ' ') {
+//            sb.deleteCharAt(sb.length() - 1);
+//        }
+//        return sb.toString();
+        s = s.trim();
+        List<String> wordList = Arrays.asList(s.split("\\s+"));
+        Collections.reverse(wordList);
+        return String.join(" ", wordList);
     }
 
 }
