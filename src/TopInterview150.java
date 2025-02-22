@@ -4,9 +4,9 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int[] list1 = {0, 1, 0, 2, 0, 0, 0, 0};
+        int[] list1 = {3,24,50,79,88,150,345};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int n = 16;
+        int n =  200;
         int m = 2;
         int k = 3;
         String str1 = "abc";
@@ -36,7 +36,8 @@ public class TopInterview150 {
 //        System.out.println(solution.strStr(str1,str2));
 //        System.out.println(solution.fullJustify(strings, n));
 //        System.out.println(solution.isPalindrome(str1));
-        System.out.println(solution.isSubsequence(str1, str2));
+//        System.out.println(solution.isSubsequence(str1, str2));
+        list2 = solution.twoSum(list1, n);
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -591,6 +592,19 @@ public class TopInterview150 {
             j++;
         }
         return i == s.length();
+    }
+
+    public int[] twoSum(int[] numbers, int target) {
+        int left = 0, right = numbers.length - 1;
+        while(numbers[left] + numbers[right] !=target) {
+            if (numbers[left] + numbers[right] > target) {
+                right--;
+            }
+            else {
+                left++;
+            }
+        }
+        return new int[]{left + 1, right + 1};
     }
 }
 
