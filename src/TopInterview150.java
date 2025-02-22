@@ -9,8 +9,8 @@ public class TopInterview150 {
         int n = 16;
         int m = 2;
         int k = 3;
-        String str1 = "A man, a plan, a canal: Panama";
-        String str2 = "sad";
+        String str1 = "abc";
+        String str2 = "ahbgdc";
         String[] strings = {"ask", "not", "what", "your", "country", "can", "do", "for", "you", "ask", "what", "you", "can", "do", "for", "your", "country"};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
@@ -35,7 +35,9 @@ public class TopInterview150 {
 //        System.out.println(solution.convert(str1, n));
 //        System.out.println(solution.strStr(str1,str2));
 //        System.out.println(solution.fullJustify(strings, n));
-        System.out.println(solution.isPalindrome(str1));
+//        System.out.println(solution.isPalindrome(str1));
+        System.out.println(solution.isSubsequence(str1, str2));
+
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
         for (int i : list1) {
@@ -578,6 +580,17 @@ public class TopInterview150 {
 
         }
         return true;
+    }
+
+    public boolean isSubsequence(String s, String t) {
+        int i = 0, j = 0;
+        while (i < s.length() && j < t.length()) {
+            if (s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+            j++;
+        }
+        return i == s.length();
     }
 }
 
