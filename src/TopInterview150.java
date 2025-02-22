@@ -9,8 +9,8 @@ public class TopInterview150 {
         int n = 3;
         int m = 2;
         int k = 3;
-        String str1 = "PAYPALISHIRING";
-        String str2 = "IX3";
+        String str1 = "sadbutsad";
+        String str2 = "sad";
         String[] strings = {str1, str2};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
@@ -32,8 +32,8 @@ public class TopInterview150 {
 //        System.out.println(solution.lengthOfLastWord(str1));
 //        System.out.println(solution.longestCommonPrefix(strings));
 //        System.out.println(solution.reverseWords(str1));
-        System.out.println(solution.convert(str1, n));
-
+//        System.out.println(solution.convert(str1, n));
+        System.out.println(solution.strStr(str1,str2));
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -504,5 +504,9 @@ public class TopInterview150 {
             result.append(stringBuilder.toString());
         }
         return result.toString();
+    }
+
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
     }
 }
