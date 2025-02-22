@@ -9,9 +9,9 @@ public class TopInterview150 {
         int n = 16;
         int m = 2;
         int k = 3;
-        String str1 = "sadbutsad";
+        String str1 = "A man, a plan, a canal: Panama";
         String str2 = "sad";
-        String[] strings = {"ask","not","what","your","country","can","do","for","you","ask","what","you","can","do","for","your","country"};
+        String[] strings = {"ask", "not", "what", "your", "country", "can", "do", "for", "you", "ask", "what", "you", "can", "do", "for", "your", "country"};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
 //        System.out.println(solution.removeDuplicates(list1));
@@ -34,8 +34,8 @@ public class TopInterview150 {
 //        System.out.println(solution.reverseWords(str1));
 //        System.out.println(solution.convert(str1, n));
 //        System.out.println(solution.strStr(str1,str2));
-        System.out.println(solution.fullJustify(strings, n));
-
+//        System.out.println(solution.fullJustify(strings, n));
+        System.out.println(solution.isPalindrome(str1));
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
         for (int i : list1) {
@@ -524,10 +524,10 @@ public class TopInterview150 {
                 length = length + words[end].length() + 1;
                 end++;
             }
-            if(end < words.length && length + words[end].length() <= maxWidth){
+            if (end < words.length && length + words[end].length() <= maxWidth) {
                 length = length + words[end].length();
                 end++;
-            }else {
+            } else {
                 length -= 1;
             }
             int space = maxWidth - length + ((end - start) - 1);
@@ -535,7 +535,7 @@ public class TopInterview150 {
             int diff = (end - start) == 1 ? 0 : space % ((end - start) - 1);
             for (int i = start; i < end; i++) {
                 currentWord.append(words[i]);
-                currentWord.append(" ".repeat(diff > 0 ? repeat + 1: repeat));
+                currentWord.append(" ".repeat(diff > 0 ? repeat + 1 : repeat));
                 diff -= 1;
             }
             if (currentWord.length() > maxWidth) {
@@ -550,14 +550,34 @@ public class TopInterview150 {
                 currentWord.append(words[i]);
                 currentWord.append(" ");
             }
-            if(currentWord.length() > maxWidth){
+            if (currentWord.length() > maxWidth) {
                 currentWord.delete(maxWidth, currentWord.length());
-            }else {
+            } else {
                 currentWord.append(" ".repeat(maxWidth - currentWord.length()));
             }
             result.add(currentWord.toString());
         }
         return result;
+    }
+
+    public boolean isPalindrome(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            while (!Character.isLetterOrDigit(s.charAt(left)) && left != right) {
+                left++;
+            }
+            while (!Character.isLetterOrDigit(s.charAt(right)) && left != right) {
+                right--;
+            }
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+
+        }
+        return true;
     }
 }
 
