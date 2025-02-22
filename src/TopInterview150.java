@@ -3,13 +3,13 @@ import java.util.*;
 public class TopInterview150 {
 
     public static void main(String[] args) {
-        TopInterview150 solution  = new TopInterview150();
+        TopInterview150 solution = new TopInterview150();
         int[] list1 = {0, 1, 0, 2, 0, 0, 0, 0};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int n = 9;
+        int n = 3;
         int m = 2;
         int k = 3;
-        String str1 = "a";
+        String str1 = "PAYPALISHIRING";
         String str2 = "IX3";
         String[] strings = {str1, str2};
 //        solution.merge(list1, 3, list2, 3);
@@ -31,7 +31,8 @@ public class TopInterview150 {
 //        System.out.println(solution.intToRoman(n));
 //        System.out.println(solution.lengthOfLastWord(str1));
 //        System.out.println(solution.longestCommonPrefix(strings));
-        System.out.println(solution.reverseWords(str1));
+//        System.out.println(solution.reverseWords(str1));
+        System.out.println(solution.convert(str1, n));
 
 
         //-----------------------------test--------------------------------------------
@@ -39,15 +40,15 @@ public class TopInterview150 {
         for (int i : list1) {
             System.out.print(i + " ");
         }
-        System.out.println("\nlist 2:  ");
+        System.out.print("\nlist 2:  ");
         for (int i : list2) {
             System.out.print(i + " ");
         }
-        System.out.println("\nn:" + n + "\nm: " + m + "\nk: " + k);
+        System.out.print("\nn: " + n + "\nm: " + m + "\nk: " + k);
         //-----------------------------------------------------------------------------
     }
 
-    public  void merge(int[] nums1, int m, int[] nums2, int n) {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
         int p1 = m - 1;
         int p2 = n - 1;
         int tail = m + n - 1;
@@ -66,7 +67,7 @@ public class TopInterview150 {
         }
     }
 
-    public  int removeElement(int[] nums, int val) {
+    public int removeElement(int[] nums, int val) {
         int i = 0;
         int j = nums.length - 1;
         while (j >= 0 && nums[j] == val) {
@@ -88,7 +89,7 @@ public class TopInterview150 {
         return nums[i] == val ? i : i + 1;
     }
 
-    public  int removeDuplicates(int[] nums) {
+    public int removeDuplicates(int[] nums) {
         int n = nums.length;
         if (n <= 1) {
             return n;
@@ -102,7 +103,7 @@ public class TopInterview150 {
         return i;
     }
 
-    public  int removeDuplicates2(int[] nums) {
+    public int removeDuplicates2(int[] nums) {
         int n = nums.length;
         if (n <= 1) {
             return n;
@@ -116,7 +117,7 @@ public class TopInterview150 {
         return i;
     }
 
-    public  int majorityElement(int[] nums) {
+    public int majorityElement(int[] nums) {
         int major = nums[0];
         int k = 0;
         for (int i = 0; i < nums.length - 1; i++) {
@@ -132,7 +133,7 @@ public class TopInterview150 {
         return major;
     }
 
-    public  void rotate(int[] nums, int k) {
+    public void rotate(int[] nums, int k) {
         if (nums.length < 2) {
             return;
         }
@@ -176,7 +177,7 @@ public class TopInterview150 {
         }
     }
 
-    public  int maxProfit(int[] prices) {
+    public int maxProfit(int[] prices) {
         int lowPrice = prices[0];
         int profit = 0;
         for (int price : prices) {
@@ -186,7 +187,7 @@ public class TopInterview150 {
         return profit;
     }
 
-    public  int maxProfit2(int[] prices) {
+    public int maxProfit2(int[] prices) {
         int profit = 0;
         int lowPrice = (prices.length > 0) ? prices[0] : 0;
         for (int i = 1; i < prices.length; i++) {
@@ -198,7 +199,7 @@ public class TopInterview150 {
         return profit;
     }
 
-    public  boolean canJump(int[] nums) {
+    public boolean canJump(int[] nums) {
         int maxStep = (nums.length > 0) ? nums[0] : -1;
         int i = 1;
         while (maxStep > 0 && i < nums.length) {
@@ -208,7 +209,7 @@ public class TopInterview150 {
         return i == nums.length;
     }
 
-    public  int jump(int[] nums) {
+    public int jump(int[] nums) {
         int step = 0, maxPos = 0, maxDistance = 0;
         for (int i = 0; i < nums.length - 1; i++) {
             maxDistance = Math.max(maxDistance, i + nums[i]);
@@ -220,7 +221,7 @@ public class TopInterview150 {
         return step;
     }
 
-    public  int hIndex(int[] citations) {
+    public int hIndex(int[] citations) {
         int left = 0, mid = 0, right = citations.length;
         while (left < right) {
             mid = (left + right + 1) / 2;
@@ -240,7 +241,7 @@ public class TopInterview150 {
     }
 
     // 将 RandomizedSet 中的 List<Integer> 改为 int[] （需自行管理 size）
-    public  class RandomizedSet {
+    public class RandomizedSet {
         private int[] nums;
         private final Map<Integer, Integer> indices;
         private int size; // 当前有效元素数量
@@ -287,7 +288,7 @@ public class TopInterview150 {
         }
     }
 
-    public  int[] productExceptSelf(int[] nums) {
+    public int[] productExceptSelf(int[] nums) {
         int length = nums.length;
         int[] result = new int[length];
         Arrays.fill(result, 1);
@@ -304,7 +305,7 @@ public class TopInterview150 {
         return result;
     }
 
-    public  int canCompleteCircuit(int[] gas, int[] cost) {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
         int length = gas.length;
         for (int i = 0; i < length; i++) {
             cost[i] = gas[i] - cost[i];
@@ -339,7 +340,7 @@ public class TopInterview150 {
         return station;
     }
 
-    public  int candy(int[] ratings) {
+    public int candy(int[] ratings) {
         int n = ratings.length;
         int minCandy = 1;
         int[] candies = new int[n];
@@ -364,7 +365,7 @@ public class TopInterview150 {
         return sum + y;
     }
 
-    public  int trap(int[] height) {
+    public int trap(int[] height) {
         int sum = 0;
         int length = height.length;
         int[] right = new int[length];
@@ -385,7 +386,7 @@ public class TopInterview150 {
         return sum;
     }
 
-    public  int romanToInt(String s) {
+    public int romanToInt(String s) {
         Map<Character, Integer> symbolValues = new HashMap<>();
         symbolValues.put('I', 1);
         symbolValues.put('V', 5);
@@ -405,7 +406,7 @@ public class TopInterview150 {
         return res;
     }
 
-    public  String intToRoman(int num) {
+    public String intToRoman(int num) {
         int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
         String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
@@ -422,7 +423,7 @@ public class TopInterview150 {
         return roman.toString();
     }
 
-    public  int lengthOfLastWord(String s) {
+    public int lengthOfLastWord(String s) {
         int result = 0;
         int length = s.length() - 1;
         while (length >= 0 && (s.charAt(length) == ' ' || s.charAt(length) == '\0')) {
@@ -435,7 +436,7 @@ public class TopInterview150 {
         return result;
     }
 
-    public  String longestCommonPrefix(String[] strs) {
+    public String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
         }
@@ -451,7 +452,7 @@ public class TopInterview150 {
         return strs[0];
     }
 
-    public  String reverseWords(String s) {
+    public String reverseWords(String s) {
 //        StringBuilder sb = new StringBuilder();
 //        int index = s.length() - 1;
 //        while (index >= 0) {
@@ -476,4 +477,32 @@ public class TopInterview150 {
         return String.join(" ", wordList);
     }
 
+    public String convert(String s, int numRows) {
+        if (numRows <= 1 || s.length() <= 1) {
+            return s;
+        }
+        StringBuilder result = new StringBuilder();
+        StringBuilder[] stringBuilders = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            stringBuilders[i] = new StringBuilder();
+        }
+        int step = 0;
+        int i = 0;
+        while (i < s.length()) {
+            while (step < numRows - 1 && i < s.length()) {
+                stringBuilders[step].append(s.charAt(i));
+                step++;
+                i++;
+            }
+            while (step > 0 && i < s.length()) {
+                stringBuilders[step].append(s.charAt(i));
+                step--;
+                i++;
+            }
+        }
+        for (StringBuilder stringBuilder : stringBuilders) {
+            result.append(stringBuilder.toString());
+        }
+        return result.toString();
+    }
 }
