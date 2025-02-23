@@ -9,7 +9,7 @@ public class TopInterview150 {
         int n = 11;
         int m = 2;
         int k = 3;
-        String str1 = "abc";
+        String str1 = "pwwkew";
         String str2 = "ahbgdc";
         String[] strings = {"ask", "not", "what", "your", "country", "can", "do", "for", "you", "ask", "what", "you", "can", "do", "for", "your", "country"};
 //        solution.merge(list1, 3, list2, 3);
@@ -40,7 +40,9 @@ public class TopInterview150 {
 //        list2 = solution.twoSum(list1, n);
 //        System.out.println(solution.maxArea(list1));
 //        System.out.println(solution.threeSum(list1));
-        System.out.println(solution.minSubArrayLen(n, list1));
+//        System.out.println(solution.minSubArrayLen(n, list1));
+        System.out.println(solution.lengthOfLongestSubstring(str1));
+
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -665,5 +667,20 @@ public class TopInterview150 {
         }
         return ans == Integer.MAX_VALUE ? 0 : ans;
     }
+
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<Character>();
+        int left = 0, longest = 0;
+        for(int right = 0; right < s.length(); right++){
+            while(set.contains(s.charAt(right))){
+                set.remove(s.charAt(left++));
+            }
+            set.add(s.charAt(right));
+            longest = Math.max(longest, set.size());
+        }
+        return longest;
+    }
+
+
 }
 
