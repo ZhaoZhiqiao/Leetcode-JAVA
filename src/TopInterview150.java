@@ -4,9 +4,9 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int[] list1 = {-1, 0, 1, 2, -1, -4};
+        int[] list1 = {1,2,3,4,5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int n = 200;
+        int n = 11;
         int m = 2;
         int k = 3;
         String str1 = "abc";
@@ -39,7 +39,8 @@ public class TopInterview150 {
 //        System.out.println(solution.isSubsequence(str1, str2));
 //        list2 = solution.twoSum(list1, n);
 //        System.out.println(solution.maxArea(list1));
-        System.out.println(solution.threeSum(list1));
+//        System.out.println(solution.threeSum(list1));
+        System.out.println(solution.minSubArrayLen(n, list1));
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -638,12 +639,30 @@ public class TopInterview150 {
                     while (left < right && nums[right] == nums[right - 1]) right--; // 去重
                     left++;
                     right--;
-                }
-                else if (sum < 0) left++;
+                } else if (sum < 0) left++;
                 else right--;
             }
         }
         return result;
+    }
+
+    public int minSubArrayLen(int target, int[] nums) {
+        int minWindowLength;
+        boolean found = false;
+        for (minWindowLength = 1; minWindowLength <= target; minWindowLength++) {
+            for (int i = 0; i <= nums.length - minWindowLength; i++) {
+                int sum = 0;
+                for (int j = i; j < i + minWindowLength; j++) {
+                    sum += nums[j];
+                }
+                if (sum >= target) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {break;}
+        }
+        return found ? minWindowLength : 0;
     }
 }
 
