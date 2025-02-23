@@ -4,7 +4,7 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int[] list1 = {1,2,3,4,5};
+        int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int n = 11;
         int m = 2;
@@ -647,22 +647,23 @@ public class TopInterview150 {
     }
 
     public int minSubArrayLen(int target, int[] nums) {
-        int minWindowLength;
-        boolean found = false;
-        for (minWindowLength = 1; minWindowLength <= target; minWindowLength++) {
-            for (int i = 0; i <= nums.length - minWindowLength; i++) {
-                int sum = 0;
-                for (int j = i; j < i + minWindowLength; j++) {
-                    sum += nums[j];
-                }
-                if (sum >= target) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {break;}
+        int n = nums.length;
+        if (n == 0) {
+            return 0;
         }
-        return found ? minWindowLength : 0;
+        int ans = Integer.MAX_VALUE;
+        int start = 0, end = 0;
+        int sum = 0;
+        while (end < n) {
+            sum += nums[end];
+            while (sum >= target) {
+                ans = Math.min(ans, end - start + 1);
+                sum -= nums[start];
+                start++;
+            }
+            end++;
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
     }
 }
 
