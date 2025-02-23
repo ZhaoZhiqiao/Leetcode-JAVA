@@ -4,7 +4,7 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int[] list1 = {1,8,6,2,5,4,8,3,7};
+        int[] list1 = {-1, 0, 1, 2, -1, -4};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int n = 200;
         int m = 2;
@@ -38,7 +38,8 @@ public class TopInterview150 {
 //        System.out.println(solution.isPalindrome(str1));
 //        System.out.println(solution.isSubsequence(str1, str2));
 //        list2 = solution.twoSum(list1, n);
-        System.out.println(solution.maxArea(list1));
+//        System.out.println(solution.maxArea(list1));
+        System.out.println(solution.threeSum(list1));
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -609,16 +610,40 @@ public class TopInterview150 {
 
     public int maxArea(int[] height) {
         int left = 0, right = height.length - 1;
-        int maxSize = Math.min(height[left] , height[right]) * (right - left) ;
+        int maxSize = Math.min(height[left], height[right]) * (right - left);
         while (left < right) {
             if (height[left] < height[right]) {
                 left++;
-            }else {
+            } else {
                 right--;
             }
-            maxSize = Math.max(maxSize,Math.min(height[left] , height[right]) * (right - left));
+            maxSize = Math.max(maxSize, Math.min(height[left], height[right]) * (right - left));
         }
         return maxSize;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; nums[i] <= 0 && i < nums.length - 2; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int left = i + 1, right = nums.length - 1;
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left < right && nums[left] == nums[left + 1]) left++; // 去重
+                    while (left < right && nums[right] == nums[right - 1]) right--; // 去重
+                    left++;
+                    right--;
+                }
+                else if (sum < 0) left++;
+                else right--;
+            }
+        }
+        return result;
     }
 }
 
