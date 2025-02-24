@@ -12,6 +12,15 @@ public class TopInterview150 {
         String str1 = "ADOBECODEBANC";
         String str2 = "ABC";
         String[] strings = {"dddd", "dddd"};
+        char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
+                , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
+                , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
+                , {'8', '.', '.', '.', '6', '.', '.', '.', '3'}
+                , {'4', '.', '.', '8', '.', '3', '.', '.', '1'}
+                , {'7', '.', '.', '.', '2', '.', '.', '.', '6'}
+                , {'.', '6', '.', '.', '.', '.', '2', '8', '.'}
+                , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
+                , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
 //        System.out.println(solution.removeDuplicates(list1));
@@ -43,7 +52,8 @@ public class TopInterview150 {
 //        System.out.println(solution.minSubArrayLen(n, list1));
 //        System.out.println(solution.lengthOfLongestSubstring(str1));
 //        System.out.println(solution.findSubstring(str1, strings));
-        System.out.println(solution.minWindow(str1, str2));
+//        System.out.println(solution.minWindow(str1, str2));
+        System.out.println(solution.isValidSudoku(board));
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
         for (int i : list1) {
@@ -760,6 +770,36 @@ public class TopInterview150 {
             right++;
         }
         return result[0] < 0 ? "" : s.substring(result[0], result[1] + 1);
+    }
+
+    public boolean isValidSudoku(char[][] board) {
+        boolean flag = true;
+        ArrayList<HashSet<Character>> block = new ArrayList<>(19);
+        for (int i = 0; i < 19; i++) {
+            block.add(i, new HashSet<>());
+        }
+
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                int label = row / 3 + col / 3 * 3;
+                char c = board[row][col];
+                if (c == '.') {
+                    continue;
+                }
+                if (block.get(18).contains(c) || block.get(label).contains(c) || block.get(9 + col).contains(c)){
+                    flag = false;
+                    break;
+                }
+                block.get(18).add(c);
+                block.get(label).add(c);
+                block.get(9 + col).add(c);
+            }
+            block.get(18).clear();
+            if (!flag) {
+                break;
+            }
+        }
+        return flag;
     }
 
 }
