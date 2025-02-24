@@ -9,9 +9,9 @@ public class TopInterview150 {
         int n = 11;
         int m = 2;
         int k = 3;
-        String str1 = "dddddddddddd";
-        String str2 = "ahbgdc";
-        String[] strings = {"dddd","dddd"};
+        String str1 = "ADOBECODEBANC";
+        String str2 = "ABC";
+        String[] strings = {"dddd", "dddd"};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
 //        System.out.println(solution.removeDuplicates(list1));
@@ -42,8 +42,8 @@ public class TopInterview150 {
 //        System.out.println(solution.threeSum(list1));
 //        System.out.println(solution.minSubArrayLen(n, list1));
 //        System.out.println(solution.lengthOfLongestSubstring(str1));
-        System.out.println(solution.findSubstring(str1, strings));
-
+//        System.out.println(solution.findSubstring(str1, strings));
+        System.out.println(solution.minWindow(str1, str2));
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
         for (int i : list1) {
@@ -249,7 +249,6 @@ public class TopInterview150 {
         return left;
     }
 
-    // 将 RandomizedSet 中的 List<Integer> 改为 int[] （需自行管理 size）
     public class RandomizedSet {
         private int[] nums;
         private final Map<Integer, Integer> indices;
@@ -689,12 +688,12 @@ public class TopInterview150 {
         }
         int wordLength = words[0].length();
 
-        if (wordLength * words.length <= s.length()){
+        if (wordLength * words.length <= s.length()) {
             HashMap<String, Integer> windows = new HashMap<>(words.length);
             for (int i = 0; i < wordLength; i++) {
-                int start = i , end = i;
+                int start = i, end = i;
 
-                for (int time = 0; time< words.length &&end + wordLength <= s.length(); time++ ,end += wordLength) {
+                for (int time = 0; time < words.length && end + wordLength <= s.length(); time++, end += wordLength) {
                     String next = s.substring(end, end + wordLength);
                     windows.put(next, windows.getOrDefault(next, 0) + 1);
                 }
@@ -702,21 +701,21 @@ public class TopInterview150 {
                 if (windows.equals(reference)) {
                     result.add(start);
                 }
-                if (end + wordLength > s.length()){
+                if (end + wordLength > s.length()) {
                     windows.clear();
                     continue;
                 }
-                while(end + wordLength <= s.length()) {
+                while (end + wordLength <= s.length()) {
                     String first = s.substring(start, start + wordLength);
-                    windows.replace(first,windows.get(first) - 1);
-                    if (windows.get(first) <= 0){
+                    windows.replace(first, windows.get(first) - 1);
+                    if (windows.get(first) <= 0) {
                         windows.remove(first);
                     }
                     start += wordLength;
 
                     String next = s.substring(end, end + wordLength);
                     windows.put(next, windows.getOrDefault(next, 0) + 1);
-                    end+=wordLength;
+                    end += wordLength;
 
                     if (windows.equals(reference)) {
                         result.add(start);
@@ -727,6 +726,40 @@ public class TopInterview150 {
 
         }
         return result;
+    }
+
+    public String minWindow(String s, String t) {
+        int[] result = {-1, s.length()};
+
+        HashMap<Character, Integer> count = new HashMap<>();
+        for (Character letter : t.toCharArray()) {
+            count.put(letter, count.getOrDefault(letter, 0) + 1);
+        }
+        int lack = count.size();
+
+        int left = 0, right = 0;
+        while (right < s.length()) {
+            Character letter = s.charAt(right);
+            count.put(letter, count.getOrDefault(letter, 0) - 1);
+            if (count.getOrDefault(letter, 0) == 0) {
+                lack -= 1;
+            }
+            while (lack == 0) {
+                if (right - left < result[1] - result[0]) {
+                    result[0] = left;
+                    result[1] = right;
+                }
+                letter = s.charAt(left);
+                if (count.getOrDefault(letter, 0) == 0) {
+                    lack++;
+                }
+                count.put(letter, count.getOrDefault(letter, 0) + 1);
+                left++;
+            }
+
+            right++;
+        }
+        return result[0] < 0 ? "" : s.substring(result[0], result[1] + 1);
     }
 
 }
