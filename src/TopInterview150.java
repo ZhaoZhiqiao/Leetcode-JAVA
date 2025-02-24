@@ -9,9 +9,9 @@ public class TopInterview150 {
         int n = 11;
         int m = 2;
         int k = 3;
-        String str1 = "pwwkew";
+        String str1 = "dddddddddddd";
         String str2 = "ahbgdc";
-        String[] strings = {"ask", "not", "what", "your", "country", "can", "do", "for", "you", "ask", "what", "you", "can", "do", "for", "your", "country"};
+        String[] strings = {"dddd","dddd"};
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
 //        System.out.println(solution.removeDuplicates(list1));
@@ -41,8 +41,8 @@ public class TopInterview150 {
 //        System.out.println(solution.maxArea(list1));
 //        System.out.println(solution.threeSum(list1));
 //        System.out.println(solution.minSubArrayLen(n, list1));
-        System.out.println(solution.lengthOfLongestSubstring(str1));
-
+//        System.out.println(solution.lengthOfLongestSubstring(str1));
+        System.out.println(solution.findSubstring(str1, strings));
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -671,8 +671,8 @@ public class TopInterview150 {
     public int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<Character>();
         int left = 0, longest = 0;
-        for(int right = 0; right < s.length(); right++){
-            while(set.contains(s.charAt(right))){
+        for (int right = 0; right < s.length(); right++) {
+            while (set.contains(s.charAt(right))) {
                 set.remove(s.charAt(left++));
             }
             set.add(s.charAt(right));
@@ -681,6 +681,53 @@ public class TopInterview150 {
         return longest;
     }
 
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> result = new ArrayList<>();
+        HashMap<String, Integer> reference = new HashMap<>();
+        for (String word : words) {
+            reference.put(word, reference.getOrDefault(word, 0) + 1);
+        }
+        int wordLength = words[0].length();
+
+        if (wordLength * words.length <= s.length()){
+            HashMap<String, Integer> windows = new HashMap<>(words.length);
+            for (int i = 0; i < wordLength; i++) {
+                int start = i , end = i;
+
+                for (int time = 0; time< words.length &&end + wordLength <= s.length(); time++ ,end += wordLength) {
+                    String next = s.substring(end, end + wordLength);
+                    windows.put(next, windows.getOrDefault(next, 0) + 1);
+                }
+
+                if (windows.equals(reference)) {
+                    result.add(start);
+                }
+                if (end + wordLength > s.length()){
+                    windows.clear();
+                    continue;
+                }
+                while(end + wordLength <= s.length()) {
+                    String first = s.substring(start, start + wordLength);
+                    windows.replace(first,windows.get(first) - 1);
+                    if (windows.get(first) <= 0){
+                        windows.remove(first);
+                    }
+                    start += wordLength;
+
+                    String next = s.substring(end, end + wordLength);
+                    windows.put(next, windows.getOrDefault(next, 0) + 1);
+                    end+=wordLength;
+
+                    if (windows.equals(reference)) {
+                        result.add(start);
+                    }
+                }
+                windows.clear();
+            }
+
+        }
+        return result;
+    }
 
 }
 
