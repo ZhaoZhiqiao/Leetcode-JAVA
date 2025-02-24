@@ -4,11 +4,12 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int[] list1 = {1, 2, 3, 4, 5};
-        int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int n = 11;
         int m = 2;
         int k = 3;
+        int[] list1 = {1, 2, 3, 4, 5};
+        int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
+        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
         String str1 = "ADOBECODEBANC";
         String str2 = "ABC";
         String[] strings = {"dddd", "dddd"};
@@ -53,7 +54,9 @@ public class TopInterview150 {
 //        System.out.println(solution.lengthOfLongestSubstring(str1));
 //        System.out.println(solution.findSubstring(str1, strings));
 //        System.out.println(solution.minWindow(str1, str2));
-        System.out.println(solution.isValidSudoku(board));
+//        System.out.println(solution.isValidSudoku(board));
+        System.out.println(solution.spiralOrder(matrix));
+
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
         for (int i : list1) {
@@ -802,5 +805,21 @@ public class TopInterview150 {
         return flag;
     }
 
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int L = 0, R = n, T = 0, B = m, i = 0, j = 0;
+        List<Integer> res = new ArrayList<>();
+        while (L < R && T < B) {
+            while (i < R) res.add(matrix[j][i++]);
+            T++; i--; j++;
+            while (j < B) res.add(matrix[j++][i]);
+            R--; i--; j--;
+            while (i >= L && res.size() < m * n) res.add(matrix[j][i--]);
+            B--; i++; j--;
+            while (j >= T && res.size() < m * n) res.add(matrix[j--][i]);
+            L++; i++; j++;
+        }
+        return res;
+    }
 }
 
