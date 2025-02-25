@@ -10,8 +10,8 @@ public class TopInterview150 {
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
-        String str1 = "bg";
-        String str2 = "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj";
+        String str1 = "foo";
+        String str2 = "bar";
         String[] strings = {"dddd", "dddd"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
                 , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
@@ -970,6 +970,26 @@ public class TopInterview150 {
             }
         }
         return result;
+    }
+
+    public boolean isIsomorphic(String s, String t) {
+        if (s.length() != t.length()) return false;
+        HashMap<Character, Character> map = new HashMap<>(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char letter1 = s.charAt(i);
+            char letter2 = t.charAt(i);
+            if (!map.containsKey(letter1)) {
+                if (map.containsValue(letter2)) {
+                    return false;
+                }
+                map.put(letter1, letter2);
+            }else {
+                if (!map.get(letter1).equals(letter2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 
