@@ -10,8 +10,8 @@ public class TopInterview150 {
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
-        String str1 = "ADOBECODEBANC";
-        String str2 = "ABC";
+        String str1 = "bg";
+        String str2 = "efjbdfbdgfjhhaiigfhbaejahgfbbgbjagbddfgdiaigdadhcfcj";
         String[] strings = {"dddd", "dddd"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
                 , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
@@ -60,6 +60,7 @@ public class TopInterview150 {
 //        solution.rotate(matrix);
 //        solution.setZeroes(matrix);
 //        solution.gameOfLife(matrix);
+        System.out.println(solution.canConstruct(str1, str2));
 
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
@@ -946,6 +947,29 @@ public class TopInterview150 {
                 }
             }
         }
+    }
+
+    public boolean canConstruct(String ransomNote, String magazine) {
+        boolean result = true;
+        HashMap<Character, Integer> reference = new HashMap<>(magazine.length());
+        for (int i = 0; i < magazine.length(); i++) {
+            char letter = magazine.charAt(i);
+            reference.put(letter, reference.getOrDefault(letter, 0) + 1);
+        }
+        for (int i = 0; i < ransomNote.length(); i++) {
+            char letter = ransomNote.charAt(i);
+            if (reference.containsKey(letter)) {
+                reference.replace(letter, reference.get(letter) - 1);
+                if (reference.get(letter) < 0) {
+                    result = false;
+                    break;
+                }
+            }else {
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 }
 
