@@ -9,7 +9,7 @@ public class TopInterview150 {
         int k = 3;
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
         String str1 = "ADOBECODEBANC";
         String str2 = "ABC";
         String[] strings = {"dddd", "dddd"};
@@ -57,7 +57,8 @@ public class TopInterview150 {
 //        System.out.println(solution.minWindow(str1, str2));
 //        System.out.println(solution.isValidSudoku(board));
 //        System.out.println(solution.spiralOrder(matrix));
-        solution.rotate(matrix);
+//        solution.rotate(matrix);
+        solution.setZeroes(matrix);
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -835,7 +836,7 @@ public class TopInterview150 {
     public void rotate(int[][] matrix) {
         int length = matrix.length;
         for (int i = 0; i < length - 1; i++) {
-            for (int j = 0; j < length - i - 1 ; j++) {
+            for (int j = 0; j < length - i - 1; j++) {
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[length - j - 1][length - i - 1];
                 matrix[length - j - 1][length - i - 1] = temp;
@@ -847,6 +848,62 @@ public class TopInterview150 {
                 matrix[i][j] = matrix[length - i - 1][j];
                 matrix[length - i - 1][j] = temp;
 
+            }
+        }
+    }
+
+    public void setZeroes(int[][] matrix) {
+        int zeroRowFlag = -1;
+        int zeroColFlag = -1;
+
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    zeroRowFlag = i;
+                    zeroColFlag = j;
+                    break;
+                }
+            }
+        }
+
+        if (zeroRowFlag >= 0) {
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][zeroColFlag] = matrix[i][zeroColFlag] == 0 ? 1 : 0;
+            }
+            for (int i = 0; i < matrix[0].length; i++) {
+                matrix[zeroRowFlag][i] = matrix[zeroRowFlag][i] == 0 ? 1 : 0;
+            }
+            for (int i = 0; i < matrix.length; i++) {
+                if (i == zeroRowFlag) continue;
+                for (int j = 0; j < matrix[0].length; j++) {
+                    if (j == zeroColFlag) continue;
+                    if (matrix[i][j] == 0) {
+                        matrix[zeroRowFlag][j] = 1;
+                        matrix[i][zeroColFlag] = 1;
+                    }
+                }
+            }
+            for (int i = 0; i < matrix.length; i++) {
+                if (i == zeroRowFlag) continue;
+                if (matrix[i][zeroColFlag] == 1) {
+                    for (int j = 0; j < matrix[0].length; j++) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (j == zeroColFlag) continue;
+                if (matrix[zeroRowFlag][j] == 1) {
+                    for (int i = 0; i < matrix.length; i++) {
+                        matrix[i][j] = 0;
+                    }
+                }
+            }
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[zeroRowFlag][j] = 0;
+            }
+            for (int i = 0; i < matrix.length; i++) {
+                matrix[i][zeroColFlag] = 0;
             }
         }
     }
