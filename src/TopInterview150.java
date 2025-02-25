@@ -10,8 +10,8 @@ public class TopInterview150 {
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
-        String str1 = "foo";
-        String str2 = "bar";
+        String str1 = "aaaa";
+        String str2 = "dog cat cat dog";
         String[] strings = {"dddd", "dddd"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
                 , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
@@ -60,7 +60,8 @@ public class TopInterview150 {
 //        solution.rotate(matrix);
 //        solution.setZeroes(matrix);
 //        solution.gameOfLife(matrix);
-        System.out.println(solution.canConstruct(str1, str2));
+//        System.out.println(solution.canConstruct(str1, str2));
+        System.out.println(solution.wordPattern(str1,str2));
 
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
@@ -985,6 +986,26 @@ public class TopInterview150 {
                 map.put(letter1, letter2);
             }else {
                 if (!map.get(letter1).equals(letter2)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean wordPattern(String pattern, String s) {
+        HashMap<Character, String> map = new HashMap<>(s.length());
+        String[] words = s.split("\\s+");
+
+        if (pattern.length() != words.length) return false;
+        for (int i = 0; i < pattern.length(); i++) {
+            if (!map.containsKey(s.charAt(i))) {
+                if (map.containsValue(words[i])) {
+                    return false;
+                }
+                map.put(s.charAt(i), words[i]);
+            }else {
+                if (!map.get(s.charAt(i)).equals(words[i])) {
                     return false;
                 }
             }
