@@ -59,18 +59,19 @@ public class TopInterview150 {
 //        System.out.println(solution.spiralOrder(matrix));
 //        solution.rotate(matrix);
 //        solution.setZeroes(matrix);
-        solution.gameOfLife(matrix);
+//        solution.gameOfLife(matrix);
 
         //-----------------------------test--------------------------------------------
-        System.out.print("list 1:  ");
-        for (int i : list1) {
-            System.out.print(i + " ");
-        }
-        System.out.print("\nlist 2:  ");
-        for (int i : list2) {
-            System.out.print(i + " ");
-        }
-        System.out.print("\nn: " + n + "\nm: " + m + "\nk: " + k);
+        System.out.println("m: " + m);
+        System.out.println("n: " + n);
+        System.out.println("k: " + k);
+        System.out.println("list 1:  "+Arrays.toString(list1));
+        System.out.println("list 2:  "+Arrays.toString(list2));
+        System.out.println("matrix:  "+Arrays.deepToString(matrix));
+        System.out.println("str1: " + str1);
+        System.out.println("str2: " + str2);
+        System.out.println("strings: " + Arrays.toString(strings));
+        System.out.println("board: " + Arrays.deepToString(board));
         //-----------------------------------------------------------------------------
     }
 
