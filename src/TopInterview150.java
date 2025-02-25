@@ -9,7 +9,7 @@ public class TopInterview150 {
         int k = 3;
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+        int[][] matrix = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         String str1 = "ADOBECODEBANC";
         String str2 = "ABC";
         String[] strings = {"dddd", "dddd"};
@@ -22,6 +22,7 @@ public class TopInterview150 {
                 , {'.', '6', '.', '.', '.', '.', '2', '8', '.'}
                 , {'.', '.', '.', '4', '1', '9', '.', '.', '5'}
                 , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
+
 //        solution.merge(list1, 3, list2, 3);
 //        System.out.println(solution.removeElement(list1, m));
 //        System.out.println(solution.removeDuplicates(list1));
@@ -55,7 +56,8 @@ public class TopInterview150 {
 //        System.out.println(solution.findSubstring(str1, strings));
 //        System.out.println(solution.minWindow(str1, str2));
 //        System.out.println(solution.isValidSudoku(board));
-        System.out.println(solution.spiralOrder(matrix));
+//        System.out.println(solution.spiralOrder(matrix));
+        solution.rotate(matrix);
 
         //-----------------------------test--------------------------------------------
         System.out.print("list 1:  ");
@@ -789,7 +791,7 @@ public class TopInterview150 {
                 if (c == '.') {
                     continue;
                 }
-                if (block.get(18).contains(c) || block.get(label).contains(c) || block.get(9 + col).contains(c)){
+                if (block.get(18).contains(c) || block.get(label).contains(c) || block.get(9 + col).contains(c)) {
                     flag = false;
                     break;
                 }
@@ -811,15 +813,42 @@ public class TopInterview150 {
         List<Integer> res = new ArrayList<>();
         while (L < R && T < B) {
             while (i < R) res.add(matrix[j][i++]);
-            T++; i--; j++;
+            T++;
+            i--;
+            j++;
             while (j < B) res.add(matrix[j++][i]);
-            R--; i--; j--;
+            R--;
+            i--;
+            j--;
             while (i >= L && res.size() < m * n) res.add(matrix[j][i--]);
-            B--; i++; j--;
+            B--;
+            i++;
+            j--;
             while (j >= T && res.size() < m * n) res.add(matrix[j--][i]);
-            L++; i++; j++;
+            L++;
+            i++;
+            j++;
         }
         return res;
+    }
+
+    public void rotate(int[][] matrix) {
+        int length = matrix.length;
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = 0; j < length - i - 1 ; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[length - j - 1][length - i - 1];
+                matrix[length - j - 1][length - i - 1] = temp;
+            }
+        }
+        for (int i = 0; i < length / 2; i++) {
+            for (int j = 0; j < length; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[length - i - 1][j];
+                matrix[length - i - 1][j] = temp;
+
+            }
+        }
     }
 }
 
