@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TopInterview150 {
 
@@ -7,7 +8,7 @@ public class TopInterview150 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {1,2,3,1,2,3};
+        int[] list1 = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{0}, {1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
         String str1 = "aaaa";
@@ -66,7 +67,8 @@ public class TopInterview150 {
 //        System.out.println(solution.wordPattern(str1,str2));
 //        list2 = solution.twoSum(list1, n);
 //        System.out.println(solution.isHappy(n));
-        System.out.println(solution.containsNearbyDuplicate2(list1, n));
+//        System.out.println(solution.containsNearbyDuplicate2(list1, n));
+        System.out.println(solution.longestConsecutive(list1));
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
         System.out.println("n: " + n);
@@ -1085,6 +1087,23 @@ public class TopInterview150 {
             }
         }
         return false;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = Arrays.stream(nums).boxed().collect(Collectors.toCollection(HashSet::new));
+        int longestSize = 0;
+        int size = 0;
+        for (int num : set) {
+            if (!set.contains(num - 1)) {
+                size = 1;
+                while (set.contains(num + 1)) {
+                    size++;
+                    num++;
+                }
+            } 
+            longestSize = Math.max(longestSize, size);
+        }
+        return longestSize;
     }
 }
 
