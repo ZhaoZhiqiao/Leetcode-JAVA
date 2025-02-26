@@ -9,10 +9,10 @@ public class TopInterview150 {
         int k = 3;
         int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
+        int[][] matrix = {{0}, {1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
         String str1 = "aaaa";
         String str2 = "dog cat cat dog";
-        String[] strings = {"dddd", "dddd"};
+        String[] strings = {"eat", "tea", "tan", "ate", "nat", "bat"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
                 , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
                 , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
@@ -61,15 +61,16 @@ public class TopInterview150 {
 //        solution.setZeroes(matrix);
 //        solution.gameOfLife(matrix);
 //        System.out.println(solution.canConstruct(str1, str2));
-        System.out.println(solution.wordPattern(str1,str2));
+//        System.out.println(solution.wordPattern(str1, str2));
+        System.out.println(solution.groupAnagrams(strings));
 
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
         System.out.println("n: " + n);
         System.out.println("k: " + k);
-        System.out.println("list 1:  "+Arrays.toString(list1));
-        System.out.println("list 2:  "+Arrays.toString(list2));
-        System.out.println("matrix:  "+Arrays.deepToString(matrix));
+        System.out.println("list 1:  " + Arrays.toString(list1));
+        System.out.println("list 2:  " + Arrays.toString(list2));
+        System.out.println("matrix:  " + Arrays.deepToString(matrix));
         System.out.println("str1: " + str1);
         System.out.println("str2: " + str2);
         System.out.println("strings: " + Arrays.toString(strings));
@@ -965,7 +966,7 @@ public class TopInterview150 {
                     result = false;
                     break;
                 }
-            }else {
+            } else {
                 result = false;
                 break;
             }
@@ -984,7 +985,7 @@ public class TopInterview150 {
                     return false;
                 }
                 map.put(letter1, letter2);
-            }else {
+            } else {
                 if (!map.get(letter1).equals(letter2)) {
                     return false;
                 }
@@ -1004,7 +1005,7 @@ public class TopInterview150 {
                     return false;
                 }
                 map.put(s.charAt(i), words[i]);
-            }else {
+            } else {
                 if (!map.get(s.charAt(i)).equals(words[i])) {
                     return false;
                 }
@@ -1012,5 +1013,32 @@ public class TopInterview150 {
         }
         return true;
     }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        int[] letter = new int[26];
+        StringBuilder sb = new StringBuilder();
+        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        for (String str : strs) {
+            char[] word = str.toCharArray();
+            for (char c : word) {
+                letter[c - 'a'] += 1;
+            }
+            for (int i = 0; i < letter.length; i++) {
+                while (letter[i] > 0) {
+                    sb.append(Character.toChars('a' + i));
+                    letter[i]--;
+                }
+            }
+            map.put(sb.toString(), map.getOrDefault(sb.toString(), new ArrayList<String>()));
+            map.get(sb.toString()).add(str);
+            sb.delete(0, sb.length());
+        }
+        List<List<String>> result = new ArrayList<List<String>>();
+        for(String str:map.keySet()){
+            result.add(map.get(str));
+        }
+        return  result;
+    }
+
 }
 
