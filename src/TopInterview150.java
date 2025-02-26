@@ -8,7 +8,7 @@ public class TopInterview150 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
+        int[] list1 = {0,1,2,4,5,7};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{0}, {1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
         String str1 = "aaaa";
@@ -68,7 +68,8 @@ public class TopInterview150 {
 //        list2 = solution.twoSum(list1, n);
 //        System.out.println(solution.isHappy(n));
 //        System.out.println(solution.containsNearbyDuplicate2(list1, n));
-        System.out.println(solution.longestConsecutive(list1));
+//        System.out.println(solution.longestConsecutive(list1));
+        System.out.println(solution.summaryRanges(list1));
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
         System.out.println("n: " + n);
@@ -1104,6 +1105,31 @@ public class TopInterview150 {
             longestSize = Math.max(longestSize, size);
         }
         return longestSize;
+    }
+
+    public List<String> summaryRanges(int[] nums) {
+        List<String> result =new ArrayList<>(nums.length);
+        StringBuilder stringBuilder = new StringBuilder();
+        int start = 0,end = 0;
+        while (end < nums.length) {
+            while(end + 1< nums.length && nums[end] + 1 == nums[end + 1]) {
+                end++;
+            }
+            if (end > start) {
+                stringBuilder.append(nums[start]).append("->").append(nums[end]);
+                result.add(stringBuilder.toString());
+                stringBuilder.delete(0,stringBuilder.length());
+                start = end + 1;
+                end = start;
+            }else {
+                stringBuilder.append(nums[start]);
+                result.add(stringBuilder.toString());
+                stringBuilder.delete(0,stringBuilder.length());
+                start = end + 1;
+                end = start;
+            }
+        }
+        return result;
     }
 }
 
