@@ -4,12 +4,12 @@ public class TopInterview150 {
 
     public static void main(String[] args) {
         TopInterview150 solution = new TopInterview150();
-        int n = 9;
+        int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {2, 7, 11, 15};
+        int[] list1 = {1,2,3,1,2,3};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{0},{1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
+        int[][] matrix = {{0}, {1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
         String str1 = "aaaa";
         String str2 = "dog cat cat dog";
         String[] strings = {"dddd", "dddd"};
@@ -64,15 +64,16 @@ public class TopInterview150 {
 //        System.out.println(solution.wordPattern(str1, str2));
 //        System.out.println(solution.groupAnagrams(strings));
 //        System.out.println(solution.wordPattern(str1,str2));
-        list2 = solution.twoSum(list1, n);
+//        list2 = solution.twoSum(list1, n);
+        System.out.println(solution.isHappy(n));
 
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
         System.out.println("n: " + n);
         System.out.println("k: " + k);
-        System.out.println("list 1:  "+Arrays.toString(list1));
-        System.out.println("list 2:  "+Arrays.toString(list2));
-        System.out.println("matrix:  "+Arrays.deepToString(matrix));
+        System.out.println("list 1:  " + Arrays.toString(list1));
+        System.out.println("list 2:  " + Arrays.toString(list2));
+        System.out.println("matrix:  " + Arrays.deepToString(matrix));
         System.out.println("str1: " + str1);
         System.out.println("str2: " + str2);
         System.out.println("strings: " + Arrays.toString(strings));
@@ -968,7 +969,7 @@ public class TopInterview150 {
                     result = false;
                     break;
                 }
-            }else {
+            } else {
                 result = false;
                 break;
             }
@@ -987,7 +988,7 @@ public class TopInterview150 {
                     return false;
                 }
                 map.put(letter1, letter2);
-            }else {
+            } else {
                 if (!map.get(letter1).equals(letter2)) {
                     return false;
                 }
@@ -1007,7 +1008,7 @@ public class TopInterview150 {
                     return false;
                 }
                 map.put(s.charAt(i), words[i]);
-            }else {
+            } else {
                 if (!map.get(s.charAt(i)).equals(words[i])) {
                     return false;
                 }
@@ -1057,5 +1058,22 @@ public class TopInterview150 {
 
         return result;
     }
+
+    public boolean isHappy(int n) {
+        Set<Integer> set = new HashSet<>();
+
+        int sum = n;
+        while (sum != 1 && !set.contains(sum)) {
+            set.add(sum);
+            char[] nums = Integer.toString(sum).toCharArray();
+            sum = 0;
+            for (char num : nums) {
+                sum += (int) Math.pow(num - '0', 2);
+            }
+
+        }
+        return sum == 1;
+    }
+
 }
 
