@@ -63,6 +63,7 @@ public class TopInterview150 {
 //        solution.gameOfLife(matrix);
 //        System.out.println(solution.canConstruct(str1, str2));
 //        System.out.println(solution.wordPattern(str1, str2));
+//        System.out.println(solution.isAnagram(str1, str2));
 //        System.out.println(solution.groupAnagrams(strings));
 //        System.out.println(solution.wordPattern(str1,str2));
 //        list2 = solution.twoSum(list1, n);
@@ -1013,6 +1014,28 @@ public class TopInterview150 {
                 map.put(s.charAt(i), words[i]);
             } else {
                 if (!map.get(s.charAt(i)).equals(words[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) return false;
+        HashMap<Character, Integer> map = new HashMap<>(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char letter1 = s.charAt(i);
+            map.put(letter1, map.getOrDefault(letter1, 0) + 1);
+        }
+
+        for (int i = 0; i < t.length(); i++) {
+            char letter2 = t.charAt(i);
+            if (!map.containsKey(letter2)) {
+                return false;
+            }else {
+                map.replace(letter2, map.get(letter2) - 1);
+                if (map.get(letter2) < 0) {
                     return false;
                 }
             }
