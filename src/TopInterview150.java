@@ -65,8 +65,8 @@ public class TopInterview150 {
 //        System.out.println(solution.groupAnagrams(strings));
 //        System.out.println(solution.wordPattern(str1,str2));
 //        list2 = solution.twoSum(list1, n);
-        System.out.println(solution.isHappy(n));
-
+//        System.out.println(solution.isHappy(n));
+        System.out.println(solution.containsNearbyDuplicate2(list1, n));
         //-----------------------------test--------------------------------------------
         System.out.println("m: " + m);
         System.out.println("n: " + n);
@@ -1075,5 +1075,16 @@ public class TopInterview150 {
         return sum == 1;
     }
 
+    public boolean containsNearbyDuplicate2(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>(nums.length);
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) {
+                return true;
+            } else {
+                map.put(nums[i], i);
+            }
+        }
+        return false;
+    }
 }
 
