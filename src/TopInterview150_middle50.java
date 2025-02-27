@@ -1,7 +1,7 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
-@SuppressWarnings({"unused","Duplicates"})
+
+@SuppressWarnings({"unused", "Duplicates"})
 public class TopInterview150_middle50 {
 
     public static void main(String[] args) {
@@ -11,10 +11,10 @@ public class TopInterview150_middle50 {
         int k = 3;
         int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{10,16}, {2,8}, {1,6}, {7,12}};
+        int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
         String str1 = "/.../a/../b/c/../d/./";
         String str2 = "(]";
-        String[] strings = {"dddd", "dddd"};
+        String[] strings = {"4","13","5","/","+"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
                 , {'6', '.', '.', '1', '9', '5', '.', '.', '.'}
                 , {'.', '9', '8', '.', '.', '.', '.', '6', '.'}
@@ -28,6 +28,7 @@ public class TopInterview150_middle50 {
 
 //        System.out.println(solution.isValid(str1));
 //        System.out.println(solution.simplifyPath(str1));
+        System.out.println(solution.evalRPN(strings));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -45,11 +46,10 @@ public class TopInterview150_middle50 {
     public boolean isValid(String s) {
         Deque<Character> stack = new LinkedList<>();
         char[] chars = s.toCharArray();
-        for(char c:chars){
-            if((!stack.isEmpty()) && ((c == ')' && stack.peek() == '(') || (c == ']' && stack.peek() == '[') || (c == '}' && stack.peek() == '{') )){
+        for (char c : chars) {
+            if ((!stack.isEmpty()) && ((c == ')' && stack.peek() == '(') || (c == ']' && stack.peek() == '[') || (c == '}' && stack.peek() == '{'))) {
                 stack.pop();
-            }
-            else {
+            } else {
                 stack.push(c);
             }
         }
@@ -60,17 +60,16 @@ public class TopInterview150_middle50 {
         Deque<String> deque = new LinkedList<>();
         String[] foldNames = path.split("/+");
         StringBuilder newPath = new StringBuilder("/");
-        for (int i = 1; i <foldNames.length;i++){
-            if ("..".equals(foldNames[i])){
-                if (!deque.isEmpty()){
+        for (int i = 1; i < foldNames.length; i++) {
+            if ("..".equals(foldNames[i])) {
+                if (!deque.isEmpty()) {
                     deque.pollLast();
                 }
-            }
-            else if (!".".equals(foldNames[i])){
+            } else if (!".".equals(foldNames[i])) {
                 deque.offerLast(foldNames[i]);
             }
         }
-        while (!deque.isEmpty()){
+        while (!deque.isEmpty()) {
             newPath.append(deque.peekFirst());
             deque.pollFirst();
             if (!deque.isEmpty()) newPath.append("/");
@@ -112,6 +111,38 @@ public class TopInterview150_middle50 {
         }
     }
 
+    public int evalRPN(String[] tokens) {
+        Deque<Integer> stack = new LinkedList<>();
+        int n, m;
+        for (String token : tokens) {
+            switch (token) {
+                case "+":
+                    n = stack.pop();
+                    m = stack.pop();
+                    stack.push(m + n);
+                    break;
+                case "-":
+                    n = stack.pop();
+                    m = stack.pop();
+                    stack.push(m - n);
+                    break;
+                case "*":
+                    n = stack.pop();
+                    m = stack.pop();
+                    stack.push(m * n);
+                    break;
+                case "/":
+                    n = stack.pop();
+                    m = stack.pop();
+                    stack.push(m / n);
+                    break;
+                default:
+                    stack.push(Integer.parseInt(token));
+                    break;
+            }
+        }
+        return stack.pop();
+    }
 
 }
 
