@@ -10,7 +10,7 @@ public class TopInterview150 {
         int k = 3;
         int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{1, 3}, {6, 9}};
+        int[][] matrix = {{10,16}, {2,8}, {1,6}, {7,12}};
         String str1 = "aaaa";
         String str2 = "dog cat cat dog";
         String[] strings = {"dddd", "dddd"};
@@ -72,7 +72,8 @@ public class TopInterview150 {
 //        System.out.println(solution.longestConsecutive(list1));
 //        System.out.println(solution.summaryRanges(list1));
 //        System.out.println(Arrays.deepToString(solution.merge(matrix)));
-        System.out.println(Arrays.deepToString(solution.insert(matrix, list1)));
+//        System.out.println(Arrays.deepToString(solution.insert(matrix, list1)));
+        System.out.println(solution.findMinArrowShots(matrix));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -1198,6 +1199,22 @@ public class TopInterview150 {
         return ansList.toArray(new int[ansList.size()][2]);
     }
 
+    public int findMinArrowShots(int[][] points) {
+        if (points.length < 1) return points.length;
+        Arrays.sort(points, Comparator.comparingInt(a -> a[1]));
 
+        int num = 1;
+        int[] center = points[0];
+        for(int i = 1; i < points.length; i++){
+            if ((center[0] < points[i][0] && center[1] < points[i][0]) || (points[i][1] < center[0] && points[i][0] < center[0])){
+                center = points[i];
+                num++;
+            }else {
+                center[0] = Math.max(center[0],points[i][0]);
+                center[1] = Math.min(center[1],points[i][1]);
+            }
+        }
+        return num;
+    }
 }
 
