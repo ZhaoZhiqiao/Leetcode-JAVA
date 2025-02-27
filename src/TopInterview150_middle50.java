@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"unused","Duplicates"})
 public class TopInterview150_middle50 {
 
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class TopInterview150_middle50 {
 
 
 //        System.out.println(solution.isValid(str1));
-        System.out.println(solution.simplifyPath(str1));
+//        System.out.println(solution.simplifyPath(str1));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -76,5 +77,41 @@ public class TopInterview150_middle50 {
         }
         return newPath.toString();
     }
+
+    @SuppressWarnings("all")
+    public class MinStack {
+        private Deque<Integer> stack;
+        private Deque<Integer> minStack;
+
+        public MinStack() {
+            this.stack = new LinkedList<>();
+            this.minStack = new LinkedList<>();
+        }
+
+        public void push(int val) {
+            stack.push(val);
+            if (minStack.isEmpty() || val <= minStack.peek()) {
+                minStack.push(val);
+            }
+
+        }
+
+        public void pop() {
+            if (minStack.peek().equals(stack.peek())) {
+                minStack.pop();
+            }
+            stack.pop();
+        }
+
+        public int top() {
+            return stack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
+    }
+
+
 }
 
