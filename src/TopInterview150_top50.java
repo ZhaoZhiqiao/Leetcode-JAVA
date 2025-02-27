@@ -1,10 +1,10 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TopInterview150 {
+public class TopInterview150_top50 {
 
     public static void main(String[] args) {
-        TopInterview150 solution = new TopInterview150();
+        TopInterview150_top50 solution = new TopInterview150_top50();
         int n = 2;
         int m = 2;
         int k = 3;
@@ -74,20 +74,19 @@ public class TopInterview150 {
 //        System.out.println(Arrays.deepToString(solution.merge(matrix)));
 //        System.out.println(Arrays.deepToString(solution.insert(matrix, list1)));
 //        System.out.println(solution.findMinArrowShots(matrix));
-//        System.out.println(solution.isValid(str1));
-        System.out.println(solution.simplifyPath(str1));
-        //-----------------------------test--------------------------------------------
-//        System.out.println("m: " + m);
-//        System.out.println("n: " + n);
-//        System.out.println("k: " + k);
-//        System.out.println("list 1:  " + Arrays.toString(list1));
-//        System.out.println("list 2:  " + Arrays.toString(list2));
-//        System.out.println("matrix:  " + Arrays.deepToString(matrix));
-//        System.out.println("str1: " + str1);
-//        System.out.println("str2: " + str2);
-//        System.out.println("strings: " + Arrays.toString(strings));
-//        System.out.println("board: " + Arrays.deepToString(board));
-        //-----------------------------------------------------------------------------
+
+//        -----------------------------test--------------------------------------------
+        System.out.println("m: " + m);
+        System.out.println("n: " + n);
+        System.out.println("k: " + k);
+        System.out.println("list 1:  " + Arrays.toString(list1));
+        System.out.println("list 2:  " + Arrays.toString(list2));
+        System.out.println("matrix:  " + Arrays.deepToString(matrix));
+        System.out.println("str1: " + str1);
+        System.out.println("str2: " + str2);
+        System.out.println("strings: " + Arrays.toString(strings));
+        System.out.println("board: " + Arrays.deepToString(board));
+//        -----------------------------------------------------------------------------
     }
 
     public void merge(int[] nums1, int m, int[] nums2, int n) {
@@ -1145,17 +1144,13 @@ public class TopInterview150 {
             }
             if (end > start) {
                 stringBuilder.append(nums[start]).append("->").append(nums[end]);
-                result.add(stringBuilder.toString());
-                stringBuilder.delete(0, stringBuilder.length());
-                start = end + 1;
-                end = start;
             } else {
                 stringBuilder.append(nums[start]);
-                result.add(stringBuilder.toString());
-                stringBuilder.delete(0, stringBuilder.length());
-                start = end + 1;
-                end = start;
             }
+            result.add(stringBuilder.toString());
+            stringBuilder.delete(0, stringBuilder.length());
+            start = end + 1;
+            end = start;
         }
         return result;
     }
@@ -1219,42 +1214,5 @@ public class TopInterview150 {
         return num;
     }
 
-    public boolean isValid(String s) {
-        Stack<Character> stack = new Stack<Character>();
-        char[] chars = s.toCharArray();
-        for(char c:chars){
-            if((!stack.empty()) && ((c == ')' && stack.peek() == '(') || (c == ']' && stack.peek() == '[') || (c == '}' && stack.peek() == '{') )){
-                stack.pop();
-            }
-            else {
-                stack.push(c);
-            }
-        }
-       return stack.empty();
-    }
-
-    public String simplifyPath(String path) {
-        Deque<String> deque = new LinkedList<>();
-        String[] foldNames = path.split("/+");
-        StringBuilder newPath = new StringBuilder("/");
-        for (int i = 1; i <foldNames.length;i++){
-            if ("..".equals(foldNames[i])){
-                if (!deque.isEmpty()){
-                    deque.pollLast();
-                }
-            }
-            else if (!".".equals(foldNames[i])){
-                deque.offerLast(foldNames[i]);
-            }
-        }
-
-        while (!deque.isEmpty()){
-            newPath.append(deque.peekFirst());
-            deque.pollFirst();
-            if (!deque.isEmpty()) newPath.append("/");
-        }
-
-        return newPath.toString();
-    }
 }
 
