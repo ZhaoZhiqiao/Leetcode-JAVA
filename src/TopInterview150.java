@@ -8,9 +8,9 @@ public class TopInterview150 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {0,1,2,4,5,7};
+        int[] list1 = {0, 1, 2, 4, 5, 7};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{0}, {1}};//{{0,1,2,0}, {3,4,5,2}, {1,3,1,5}};
+        int[][] matrix = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
         String str1 = "aaaa";
         String str2 = "dog cat cat dog";
         String[] strings = {"dddd", "dddd"};
@@ -70,18 +70,19 @@ public class TopInterview150 {
 //        System.out.println(solution.isHappy(n));
 //        System.out.println(solution.containsNearbyDuplicate2(list1, n));
 //        System.out.println(solution.longestConsecutive(list1));
-        System.out.println(solution.summaryRanges(list1));
+//        System.out.println(solution.summaryRanges(list1));
+        System.out.println(Arrays.deepToString(solution.merge(matrix)));
         //-----------------------------test--------------------------------------------
-        System.out.println("m: " + m);
-        System.out.println("n: " + n);
-        System.out.println("k: " + k);
-        System.out.println("list 1:  " + Arrays.toString(list1));
-        System.out.println("list 2:  " + Arrays.toString(list2));
-        System.out.println("matrix:  " + Arrays.deepToString(matrix));
-        System.out.println("str1: " + str1);
-        System.out.println("str2: " + str2);
-        System.out.println("strings: " + Arrays.toString(strings));
-        System.out.println("board: " + Arrays.deepToString(board));
+//        System.out.println("m: " + m);
+//        System.out.println("n: " + n);
+//        System.out.println("k: " + k);
+//        System.out.println("list 1:  " + Arrays.toString(list1));
+//        System.out.println("list 2:  " + Arrays.toString(list2));
+//        System.out.println("matrix:  " + Arrays.deepToString(matrix));
+//        System.out.println("str1: " + str1);
+//        System.out.println("str2: " + str2);
+//        System.out.println("strings: " + Arrays.toString(strings));
+//        System.out.println("board: " + Arrays.deepToString(board));
         //-----------------------------------------------------------------------------
     }
 
@@ -1033,7 +1034,7 @@ public class TopInterview150 {
             char letter2 = t.charAt(i);
             if (!map.containsKey(letter2)) {
                 return false;
-            }else {
+            } else {
                 map.replace(letter2, map.get(letter2) - 1);
                 if (map.get(letter2) < 0) {
                     return false;
@@ -1124,35 +1125,51 @@ public class TopInterview150 {
                     size++;
                     num++;
                 }
-            } 
+            }
             longestSize = Math.max(longestSize, size);
         }
         return longestSize;
     }
 
     public List<String> summaryRanges(int[] nums) {
-        List<String> result =new ArrayList<>(nums.length);
+        List<String> result = new ArrayList<>(nums.length);
         StringBuilder stringBuilder = new StringBuilder();
-        int start = 0,end = 0;
+        int start = 0, end = 0;
         while (end < nums.length) {
-            while(end + 1< nums.length && nums[end] + 1 == nums[end + 1]) {
+            while (end + 1 < nums.length && nums[end] + 1 == nums[end + 1]) {
                 end++;
             }
             if (end > start) {
                 stringBuilder.append(nums[start]).append("->").append(nums[end]);
                 result.add(stringBuilder.toString());
-                stringBuilder.delete(0,stringBuilder.length());
+                stringBuilder.delete(0, stringBuilder.length());
                 start = end + 1;
                 end = start;
-            }else {
+            } else {
                 stringBuilder.append(nums[start]);
                 result.add(stringBuilder.toString());
-                stringBuilder.delete(0,stringBuilder.length());
+                stringBuilder.delete(0, stringBuilder.length());
                 start = end + 1;
                 end = start;
             }
         }
         return result;
     }
+
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        List<int[]> result = new ArrayList<int[]>();
+        for (int i = 0; i < intervals.length; i++) {
+            int start = intervals[i][0];
+            int end = intervals[i][1];
+            while (i + 1 < intervals.length && end >= intervals[i + 1][0]) {
+                end = Math.max(end, intervals[i + 1][1]);
+                i++;
+            }
+            result.add(new int[]{start, end});
+        }
+        return result.toArray(new int[result.size()][]);
+    }
+
 }
 
