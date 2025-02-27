@@ -11,7 +11,7 @@ public class TopInterview150 {
         int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{10,16}, {2,8}, {1,6}, {7,12}};
-        String str1 = "]";
+        String str1 = "/.../a/../b/c/../d/./";
         String str2 = "(]";
         String[] strings = {"dddd", "dddd"};
         char[][] board = {{'5', '3', '.', '.', '7', '.', '.', '.', '.'}
@@ -74,7 +74,8 @@ public class TopInterview150 {
 //        System.out.println(Arrays.deepToString(solution.merge(matrix)));
 //        System.out.println(Arrays.deepToString(solution.insert(matrix, list1)));
 //        System.out.println(solution.findMinArrowShots(matrix));
-        System.out.println(solution.isValid(str1));
+//        System.out.println(solution.isValid(str1));
+        System.out.println(solution.simplifyPath(str1));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -1230,6 +1231,30 @@ public class TopInterview150 {
             }
         }
        return stack.empty();
+    }
+
+    public String simplifyPath(String path) {
+        Deque<String> deque = new LinkedList<>();
+        String[] foldNames = path.split("/+");
+        StringBuilder newPath = new StringBuilder("/");
+        for (int i = 1; i <foldNames.length;i++){
+            if ("..".equals(foldNames[i])){
+                if (!deque.isEmpty()){
+                    deque.pollLast();
+                }
+            }
+            else if (!".".equals(foldNames[i])){
+                deque.offerLast(foldNames[i]);
+            }
+        }
+
+        while (!deque.isEmpty()){
+            newPath.append(deque.peekFirst());
+            deque.pollFirst();
+            if (!deque.isEmpty()) newPath.append("/");
+        }
+
+        return newPath.toString();
     }
 }
 
