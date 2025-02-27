@@ -8,9 +8,9 @@ public class TopInterview150 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {0, 1, 2, 4, 5, 7};
+        int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
-        int[][] matrix = {{1, 3}, {2, 6}, {8, 10}, {15, 18}};
+        int[][] matrix = {{1, 3}, {6, 9}};
         String str1 = "aaaa";
         String str2 = "dog cat cat dog";
         String[] strings = {"dddd", "dddd"};
@@ -71,7 +71,8 @@ public class TopInterview150 {
 //        System.out.println(solution.containsNearbyDuplicate2(list1, n));
 //        System.out.println(solution.longestConsecutive(list1));
 //        System.out.println(solution.summaryRanges(list1));
-        System.out.println(Arrays.deepToString(solution.merge(matrix)));
+//        System.out.println(Arrays.deepToString(solution.merge(matrix)));
+        System.out.println(Arrays.deepToString(solution.insert(matrix, list1)));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -1170,6 +1171,33 @@ public class TopInterview150 {
         }
         return result.toArray(new int[result.size()][]);
     }
+
+    public int[][] insert(int[][] intervals, int[] newInterval) {
+        int start = newInterval[0];
+        int end = newInterval[1];
+        boolean placed = false;
+        List<int[]> ansList = new ArrayList<int[]>();
+
+        for (int[] interval : intervals) {
+            if (interval[0] > end) {
+                if (!placed) {
+                    ansList.add(new int[]{start, end});
+                    placed = true;
+                }
+                ansList.add(interval);
+            } else if (interval[1] < start) {
+                ansList.add(interval);
+            } else {
+                start = Math.min(start, interval[0]);
+                end = Math.max(end, interval[1]);
+            }
+        }
+        if (!placed) {
+            ansList.add(new int[]{start, end});
+        }
+        return ansList.toArray(new int[ansList.size()][2]);
+    }
+
 
 }
 
