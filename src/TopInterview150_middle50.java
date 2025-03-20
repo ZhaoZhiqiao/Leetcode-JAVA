@@ -11,10 +11,11 @@ public class TopInterview150_middle50 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {2, 5};
-        int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
+        int[] list1 = {2,4,5};
+        int[] list2 = {5,6,4};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
-        ListNode linkListHead = ListNode.fromArray(list1);
+        ListNode linkListHead1 = ListNode.fromArray(list1);
+        ListNode linkListHead2 = ListNode.fromArray(list2);
         String str1 = "/.../a/../b/c/../d/./";
         String str2 = "(]";
         String[] strings = {"4", "13", "5", "/", "+"};
@@ -32,12 +33,13 @@ public class TopInterview150_middle50 {
 //        System.out.println(solution.isValid(str1));
 //        System.out.println(solution.simplifyPath(str1));
 //        System.out.println(solution.evalRPN(strings));
-        ListNode current = linkListHead;
-        while(current.next != null){
-            current = current.next;
-        }
-        current.next = linkListHead;
-        System.out.println(solution.hasCycle(linkListHead));
+//        ListNode current = linkListHead1;
+//        while(current.next != null){
+//            current = current.next;
+//        }
+//        current.next = linkListHead1;
+//        System.out.println(solution.hasCycle(linkListHead1));
+        System.out.println(solution.addTwoNumbers(linkListHead1, linkListHead2));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -189,18 +191,56 @@ public class TopInterview150_middle50 {
     public boolean hasCycle(ListNode head) {
         ListNode slow = head;
         boolean flag = false;
-        if (slow!= null &&slow.next != null){
+        if (slow != null && slow.next != null) {
             ListNode fast = head.next;
-            while (fast.next != null && fast.next.next != null ) {
+            while (fast.next != null && fast.next.next != null) {
                 fast = fast.next.next;
                 slow = slow.next;
-                if(fast == slow){
+                if (fast == slow) {
                     flag = true;
                     break;
                 }
             }
         }
         return flag;
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int x = l1.val + l2.val;
+        boolean flag = x >= 10;
+        ListNode head = new ListNode(x % 10);
+        ListNode current = head;
+        while (l1.next != null && l2.next != null) {
+            l1 = l1.next;
+            l2 = l2.next;
+            x =  flag ? (l1.val + l2.val) + 1 : (l1.val + l2.val);
+            flag = x >= 10;
+            current.next = new ListNode(x % 10);
+            current = current.next;
+        }
+
+        while(l1.next != null){
+            l1 = l1.next;
+            x = flag ? l1.val + 1 : l1.val;
+            flag = x >= 10;
+            current.next = new ListNode(x % 10);
+            current = current.next;
+
+        }
+
+        while(l2.next != null){
+            l2 = l2.next;
+            x = flag ? l2.val + 1 : l2.val;
+            flag = x >= 10;
+            current.next = new ListNode(x % 10);
+            current = current.next;
+        }
+
+        if (flag){
+            current.next = new ListNode(1);
+        }
+
+        return head;
     }
 }
 
