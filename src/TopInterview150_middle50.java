@@ -1,4 +1,5 @@
 import DataStructrue.ListNode;
+import DataStructrue.Node;
 
 import java.util.*;
 
@@ -14,6 +15,7 @@ public class TopInterview150_middle50 {
         int[] list1 = {2, 4, 5};
         int[] list2 = {5, 6, 4};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
+        Integer[][] integers =  {{7, null}, {13, 0}, {11, 4}, {10, 2}, {1, 0}};
         ListNode linkListHead1 = ListNode.fromArray(list1);
         ListNode linkListHead2 = ListNode.fromArray(list2);
         String str1 = "/.../a/../b/c/../d/./";
@@ -39,8 +41,8 @@ public class TopInterview150_middle50 {
 //        }
 //        current.next = linkListHead1;
 //        System.out.println(solution.hasCycle(linkListHead1));
-//
-        System.out.println(solution.mergeTwoLists(linkListHead1, linkListHead2));
+//        System.out.println(solution.mergeTwoLists(linkListHead1, linkListHead2));
+        System.out.println(solution.copyRandomList(Node.createLinkedList(integers)));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -273,6 +275,38 @@ public class TopInterview150_middle50 {
             }
         }
         return head.next;
+    }
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+        Node current = head;
+        while (current != null) {
+            Node temp = new Node(current.val);
+            temp.next = current.next;
+            current.next = temp;
+            current = temp.next;
+        }
+        current = head;
+        while (current != null) {
+            current.next.random =  current.random == null? null : current.random.next;
+            current = current.next.next;
+        }
+
+        Node oldHead = head;
+        Node newHead = head.next;
+
+        current = newHead.next;
+
+        while (current.next != null) {
+            oldHead.next = current.next;
+            oldHead = oldHead.next;
+
+            current.next = current.next.next;
+            current = current.next;
+        }
+        oldHead.next = null;
+        return newHead;
     }
 }
 
