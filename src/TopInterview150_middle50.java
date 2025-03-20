@@ -1,3 +1,5 @@
+import DataStructrue.ListNode;
+
 import java.util.*;
 
 
@@ -12,6 +14,7 @@ public class TopInterview150_middle50 {
         int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
+        ListNode linkListHead = ListNode.fromArray(list1);
         String str1 = "/.../a/../b/c/../d/./";
         String str2 = "(]";
         String[] strings = {"4", "13", "5", "/", "+"};
@@ -28,7 +31,13 @@ public class TopInterview150_middle50 {
 
 //        System.out.println(solution.isValid(str1));
 //        System.out.println(solution.simplifyPath(str1));
-        System.out.println(solution.evalRPN(strings));
+//        System.out.println(solution.evalRPN(strings));
+        ListNode current = linkListHead;
+        while(current.next != null){
+            current = current.next;
+        }
+        current.next = linkListHead;
+        System.out.println(solution.hasCycle(linkListHead));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -174,6 +183,24 @@ public class TopInterview150_middle50 {
             }
         }
         return result;
+    }
+
+
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        boolean flag = false;
+        if (slow!= null &&slow.next != null){
+            ListNode fast = head.next;
+            while (fast.next != null && fast.next.next != null ) {
+                fast = fast.next.next;
+                slow = slow.next;
+                if(fast == slow){
+                    flag = true;
+                    break;
+                }
+            }
+        }
+        return flag;
     }
 }
 
