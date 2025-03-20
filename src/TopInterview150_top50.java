@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings({"unused","Duplicates"})
 public class TopInterview150_top50 {
 
     public static void main(String[] args) {
@@ -263,7 +264,7 @@ public class TopInterview150_top50 {
     }
 
     public int hIndex(int[] citations) {
-        int left = 0, mid = 0, right = citations.length;
+        int left = 0, mid, right = citations.length;
         while (left < right) {
             mid = (left + right + 1) / 2;
             int cnt = 0;
@@ -281,6 +282,7 @@ public class TopInterview150_top50 {
         return left;
     }
 
+    @SuppressWarnings("all")
     public class RandomizedSet {
         private int[] nums;
         private final Map<Integer, Integer> indices;
@@ -396,7 +398,7 @@ public class TopInterview150_top50 {
                 minCandy = Math.min(candies[i], minCandy);
             }
         }
-        int y = (minCandy <= 1 ? (1 - minCandy) * n : minCandy);
+        int y = (1 - minCandy) * n ;
 
         int sum = 0;
         for (int c : candies) {
@@ -547,12 +549,11 @@ public class TopInterview150_top50 {
     }
 
     public int strStr(String haystack, String needle) {
-        int result = haystack.indexOf(needle);
-        return result;
+        return haystack.indexOf(needle);
     }
 
     public List<String> fullJustify(String[] words, int maxWidth) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         StringBuilder currentWord = new StringBuilder();
 
         int start = 0, end = 0;
@@ -700,7 +701,7 @@ public class TopInterview150_top50 {
     }
 
     public int lengthOfLongestSubstring(String s) {
-        Set<Character> set = new HashSet<Character>();
+        Set<Character> set = new HashSet<>();
         int left = 0, longest = 0;
         for (int right = 0; right < s.length(); right++) {
             while (set.contains(s.charAt(right))) {
@@ -1050,7 +1051,7 @@ public class TopInterview150_top50 {
     public List<List<String>> groupAnagrams(String[] strs) {
         int[] letter = new int[26];
         StringBuilder sb = new StringBuilder();
-        HashMap<String, List<String>> map = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> map = new HashMap<>();
         for (String str : strs) {
             char[] word = str.toCharArray();
             for (char c : word) {
@@ -1062,11 +1063,11 @@ public class TopInterview150_top50 {
                     letter[i]--;
                 }
             }
-            map.put(sb.toString(), map.getOrDefault(sb.toString(), new ArrayList<String>()));
+            map.put(sb.toString(), map.getOrDefault(sb.toString(), new ArrayList<>()));
             map.get(sb.toString()).add(str);
             sb.delete(0, sb.length());
         }
-        List<List<String>> result = new ArrayList<List<String>>();
+        List<List<String>> result = new ArrayList<>();
         for (String str : map.keySet()) {
             result.add(map.get(str));
         }
@@ -1075,7 +1076,7 @@ public class TopInterview150_top50 {
 
     public int[] twoSum(int[] nums, int target) {
         int[] result = new int[2];
-        HashMap<Integer, Integer> diff = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> diff = new HashMap<>();
 
         for (int i = 0; i < nums.length; i++) {
             if (diff.containsKey(target - nums[i])) {
@@ -1157,7 +1158,7 @@ public class TopInterview150_top50 {
 
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
-        List<int[]> result = new ArrayList<int[]>();
+        List<int[]> result = new ArrayList<>();
         for (int i = 0; i < intervals.length; i++) {
             int start = intervals[i][0];
             int end = intervals[i][1];
@@ -1174,7 +1175,7 @@ public class TopInterview150_top50 {
         int start = newInterval[0];
         int end = newInterval[1];
         boolean placed = false;
-        List<int[]> ansList = new ArrayList<int[]>();
+        List<int[]> ansList = new ArrayList<>();
 
         for (int[] interval : intervals) {
             if (interval[0] > end) {
