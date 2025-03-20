@@ -12,10 +12,10 @@ public class TopInterview150_middle50 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {2, 4, 5};
+        int[] list1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         int[] list2 = {5, 6, 4};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
-        Integer[][] integers =  {{7, null}, {13, 0}, {11, 4}, {10, 2}, {1, 0}};
+        Integer[][] integers = {{7, null}, {13, 0}, {11, 4}, {10, 2}, {1, 0}};
         ListNode linkListHead1 = ListNode.fromArray(list1);
         ListNode linkListHead2 = ListNode.fromArray(list2);
         String str1 = "/.../a/../b/c/../d/./";
@@ -42,7 +42,8 @@ public class TopInterview150_middle50 {
 //        current.next = linkListHead1;
 //        System.out.println(solution.hasCycle(linkListHead1));
 //        System.out.println(solution.mergeTwoLists(linkListHead1, linkListHead2));
-        System.out.println(solution.copyRandomList(Node.createLinkedList(integers)));
+//
+        System.out.println(solution.reverseBetween(linkListHead1, 2, 9));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -249,8 +250,7 @@ public class TopInterview150_middle50 {
         ListNode head = new ListNode(0);
         if (list1 == null || list2 == null) {
             head.next = list1 == null ? list2 : list1;
-        }
-        else {
+        } else {
             ListNode current = head;
             while (list1 != null && list2 != null) {
                 if (list1.val <= list2.val) {
@@ -263,12 +263,12 @@ public class TopInterview150_middle50 {
                     list2 = list2.next;
                 }
             }
-            while (list1 != null){
+            while (list1 != null) {
                 current.next = new ListNode(list1.val);
                 current = current.next;
                 list1 = list1.next;
             }
-            while (list2 != null){
+            while (list2 != null) {
                 current.next = new ListNode(list2.val);
                 current = current.next;
                 list2 = list2.next;
@@ -276,6 +276,7 @@ public class TopInterview150_middle50 {
         }
         return head.next;
     }
+
     public Node copyRandomList(Node head) {
         if (head == null) {
             return null;
@@ -289,7 +290,7 @@ public class TopInterview150_middle50 {
         }
         current = head;
         while (current != null) {
-            current.next.random =  current.random == null? null : current.random.next;
+            current.next.random = current.random == null ? null : current.random.next;
             current = current.next.next;
         }
 
@@ -307,6 +308,24 @@ public class TopInterview150_middle50 {
         }
         oldHead.next = null;
         return newHead;
+    }
+
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        for (int i = 0; i < left - 1; i++) {
+             prev = prev.next;
+        }
+        ListNode current = prev.next;
+        ListNode next;
+        for (int i = 0; i < right - left; i++) {
+            next = current.next;
+            current.next = next.next;
+            next.next = prev.next;
+            prev.next = next;
+        }
+        return dummy.next;
     }
 }
 
