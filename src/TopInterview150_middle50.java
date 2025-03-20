@@ -1,8 +1,7 @@
+import DataStructrue.ListNode;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TopInterview150_middle50 {
-
     public static void main(String[] args) {
         TopInterview150_middle50 solution = new TopInterview150_middle50();
         int n = 2;
@@ -11,6 +10,7 @@ public class TopInterview150_middle50 {
         int[] list1 = {2, 5};
         int[] list2 = {3, 4, 5, 1, 2, 0, 0, 0};
         int[][] matrix = {{10,16}, {2,8}, {1,6}, {7,12}};
+        ListNode linkedList = ListNode.fromArray(list1);
         String str1 = "/.../a/../b/c/../d/./";
         String str2 = "(]";
         String[] strings = {"dddd", "dddd"};
@@ -76,5 +76,6 @@ public class TopInterview150_middle50 {
         }
         return newPath.toString();
     }
+
 }
 
