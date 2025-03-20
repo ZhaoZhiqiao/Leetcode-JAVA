@@ -11,8 +11,8 @@ public class TopInterview150_middle50 {
         int n = 2;
         int m = 2;
         int k = 3;
-        int[] list1 = {2,4,5};
-        int[] list2 = {5,6,4};
+        int[] list1 = {2, 4, 5};
+        int[] list2 = {5, 6, 4};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
         ListNode linkListHead1 = ListNode.fromArray(list1);
         ListNode linkListHead2 = ListNode.fromArray(list2);
@@ -39,7 +39,8 @@ public class TopInterview150_middle50 {
 //        }
 //        current.next = linkListHead1;
 //        System.out.println(solution.hasCycle(linkListHead1));
-        System.out.println(solution.addTwoNumbers(linkListHead1, linkListHead2));
+//
+        System.out.println(solution.mergeTwoLists(linkListHead1, linkListHead2));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -187,7 +188,6 @@ public class TopInterview150_middle50 {
         return result;
     }
 
-
     public boolean hasCycle(ListNode head) {
         ListNode slow = head;
         boolean flag = false;
@@ -213,13 +213,13 @@ public class TopInterview150_middle50 {
         while (l1.next != null && l2.next != null) {
             l1 = l1.next;
             l2 = l2.next;
-            x =  flag ? (l1.val + l2.val) + 1 : (l1.val + l2.val);
+            x = flag ? (l1.val + l2.val) + 1 : (l1.val + l2.val);
             flag = x >= 10;
             current.next = new ListNode(x % 10);
             current = current.next;
         }
 
-        while(l1.next != null){
+        while (l1.next != null) {
             l1 = l1.next;
             x = flag ? l1.val + 1 : l1.val;
             flag = x >= 10;
@@ -228,7 +228,7 @@ public class TopInterview150_middle50 {
 
         }
 
-        while(l2.next != null){
+        while (l2.next != null) {
             l2 = l2.next;
             x = flag ? l2.val + 1 : l2.val;
             flag = x >= 10;
@@ -236,11 +236,43 @@ public class TopInterview150_middle50 {
             current = current.next;
         }
 
-        if (flag){
+        if (flag) {
             current.next = new ListNode(1);
         }
 
         return head;
+    }
+
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode head = new ListNode(0);
+        if (list1 == null || list2 == null) {
+            head.next = list1 == null ? list2 : list1;
+        }
+        else {
+            ListNode current = head;
+            while (list1 != null && list2 != null) {
+                if (list1.val <= list2.val) {
+                    current.next = new ListNode(list1.val);
+                    current = current.next;
+                    list1 = list1.next;
+                } else {
+                    current.next = new ListNode(list2.val);
+                    current = current.next;
+                    list2 = list2.next;
+                }
+            }
+            while (list1 != null){
+                current.next = new ListNode(list1.val);
+                current = current.next;
+                list1 = list1.next;
+            }
+            while (list2 != null){
+                current.next = new ListNode(list2.val);
+                current = current.next;
+                list2 = list2.next;
+            }
+        }
+        return head.next;
     }
 }
 
