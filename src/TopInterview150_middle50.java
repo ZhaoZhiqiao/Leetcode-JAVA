@@ -9,10 +9,10 @@ public class TopInterview150_middle50 {
 
     public static void main(String[] args) {
         TopInterview150_middle50 solution = new TopInterview150_middle50();
-        int n = 2;
+        int n = 3;
         int m = 2;
         int k = 3;
-        int[] list1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] list1 = {1, 2, 3, 4, 5};
         int[] list2 = {5, 6, 4};
         int[][] matrix = {{10, 16}, {2, 8}, {1, 6}, {7, 12}};
         Integer[][] integers = {{7, null}, {13, 0}, {11, 4}, {10, 2}, {1, 0}};
@@ -43,7 +43,8 @@ public class TopInterview150_middle50 {
 //        System.out.println(solution.hasCycle(linkListHead1));
 //        System.out.println(solution.mergeTwoLists(linkListHead1, linkListHead2));
 //
-        System.out.println(solution.reverseBetween(linkListHead1, 2, 9));
+//        System.out.println(solution.reverseBetween(linkListHead1, 2, 9));
+        System.out.println(solution.reverseKGroup(linkListHead1, n));
         //-----------------------------test--------------------------------------------
 //        System.out.println("m: " + m);
 //        System.out.println("n: " + n);
@@ -315,7 +316,7 @@ public class TopInterview150_middle50 {
         dummy.next = head;
         ListNode prev = dummy;
         for (int i = 0; i < left - 1; i++) {
-             prev = prev.next;
+            prev = prev.next;
         }
         ListNode current = prev.next;
         ListNode next;
@@ -324,6 +325,32 @@ public class TopInterview150_middle50 {
             current.next = next.next;
             next.next = prev.next;
             prev.next = next;
+        }
+        return dummy.next;
+    }
+
+    public ListNode reverseKGroup(ListNode head, int k) {
+
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy, current = dummy, next = head, temp = dummy;
+        int target =  k;
+        for (int left = 1, right = left + k - 1; current.next != null; left += k, right = left + k - 1,target = k) {
+            temp = current;
+            while (temp.next != null && target > 0) {
+                temp = temp.next;
+                target--;
+            }
+            if (target > 0) break;
+
+            prev = current;
+            current = prev.next;
+            for (int i = 0; i < right - left && current.next != null; i++) {
+                next = current.next;
+                current.next = next.next;
+                next.next = prev.next;
+                prev.next = next;
+            }
         }
         return dummy.next;
     }
